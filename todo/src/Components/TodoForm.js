@@ -1,24 +1,26 @@
-import React, { useState } from "react";
-import { todos } from "../reducers/reducer";
+import React, { useState, useReducer } from "react";
+import { todos,reducer } from "../reducers/reducer";
 
 const TodoForm = () => {
-  const [state, setState] = useState(todos);
+  // const [state, setState] = useState(todos);
+
+  const [ state, dispatch ] = useReducer(reducer, todos)
 
   const [newTodo, setNewTodo] = useState("");
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target);
 
-    setState([...state, { item: newTodo, completed: false, id: Date.now() }]);
-  };
+  //   setState([...state, { item: newTodo, completed: false, id: Date.now() }]);
+  // };
 
 
 
   return (
     <div>
       <div className="ui segment">
-        <form className="ui form" onSubmit={onSubmit}>
+        <form className="ui form" onSubmit={(e) => {e.preventDefault(); dispatch({type: 'ADD_ITEM', payload: newTodo})}}>
           <div className="field">
             <label>Add a ToDo</label>
             <input type="text" onChange={(e) => setNewTodo(e.target.value)} />

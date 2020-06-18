@@ -9,8 +9,8 @@ export const reducer = (state, action) => {
     case "ADD_ITEM":
       return [...state, {item: action.payload, completed:false, id: Date.now()} ] ;
 
-    case "":
-      return { ...state };
+    // case "":
+    //   return { ...state };
 
     default:
       return state;
