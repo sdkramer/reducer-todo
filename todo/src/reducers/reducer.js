@@ -9,8 +9,11 @@ export const reducer = (state, action) => {
     case "ADD_ITEM":
       return [...state, {item: action.payload, completed:false, id: Date.now()} ] ;
 
-    // case "":
-    //   return { ...state };
+    case "TOGGLE_COMPLETE":
+      return action.payload.add('completed');
+
+    //   case "CLEAR_COMPLETED":
+    //     return {...state, todos.filter(todo => !todo.completed)};
 
     default:
       return state;
