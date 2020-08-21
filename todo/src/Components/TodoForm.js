@@ -1,11 +1,11 @@
 import React, { useState, useReducer } from "react";
-import { todos,reducer } from "../reducers/reducer";
+import { initialState,reducer } from "../reducers/reducer";
 import './TodoForm.css';
 
 const TodoForm = () => {
   // const [state, setState] = useState(todos);
 
-  const [ state, dispatch ] = useReducer(reducer, todos)
+  const [ state, dispatch ] = useReducer(reducer, initialState)
 
   const [newTodo, setNewTodo] = useState("");
 
@@ -16,41 +16,53 @@ const TodoForm = () => {
   //   setState([...state, { item: newTodo, completed: false, id: Date.now() }]);
   // };
 
-  const toggleItem = (e) => {
-console.log('toggle item',e);
-const todoDiv = e.target.classList
+  const toggleItem = (todoId) => {
+console.log('toggle item',todoId);
+// const todoDiv = e.target.classList
 // todoDiv.add('completed')
-dispatch({type: 'TOGGLE_COMPLETE', payload: todoDiv})
+
+// dispatch({type: 'TOGGLE_COMPLETE', payload: todoDiv})
 
   }
+
+  // const clearCompleted = (e) => {
+
+  // }
 
 
 
   return (
-    <div>
-      <div className="ui segment">
-        <form className="ui form" onSubmit={(e) => {e.preventDefault(); dispatch({type: 'ADD_ITEM', payload: newTodo})}}>
+  <>
+       <div className="ui segment">
+        <form className="ui form" onSubmit={(e) => {e.preventDefault(); setNewTodo(''); dispatch({type: 'ADD_ITEM', payload: newTodo})}}>
           <div className="field">
-            <input type="text" onChange={(e) => setNewTodo(e.target.value)} />
+            <input type="text" value={newTodo}onChange={(e) => {setNewTodo(e.target.value); console.log(e.target)}} />
             <button type='submit'>Add Todo</button>
           </div>
         </form>
       </div>
+
       <div className="ui divided items">
+
         {state.map((todo) => {
-          console.log('the todo',todo);
+          console.log('the state',state);
           
           return (
             <div className="item">
               <div className="ui tiny image">
                 <i className="calendar outline icon"></i>
               </div>
-              <div className={todo.completed ? 'completed': ''} onClick={toggleItem}>{todo.item} </div>
+            <div className={todo.completed ? 'completed': ''} onClick={() => dispatch({type: "TOGGLE_COMPLETE", payload: todo})}>
+              {todo.item}
+            </div>
             </div>
           );
         })}
+
       </div>
-    </div>
+  
+  </>
+ 
   );
 };
 

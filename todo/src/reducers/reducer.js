@@ -1,19 +1,32 @@
-export const todos = [{
+export const initialState = [{
   item: "Learn about reducers",
   completed: false,
   id: 3892987589,
 }];
 
-export const reducer = (state, action) => {
+export const reducer = (state=initialState, action) => {
   switch (action.type) {
+
     case "ADD_ITEM":
       return [...state, {item: action.payload, completed:false, id: Date.now()} ] ;
 
     case "TOGGLE_COMPLETE":
-      return action.payload.add('completed');
+      return state.map(todo => {
+        if (todo.id === action.payload.id) {
+          return {...todo, completed: !todo.completed}} else {
+            return todo;}
+        });
+     
 
-    //   case "CLEAR_COMPLETED":
-    //     return {...state, todos.filter(todo => !todo.completed)};
+      // case "CLEAR_COMPLETED":
+      //   return {
+       
+      //    state.filter(todo => {
+      //       return (!todo.completed)
+      //     } )
+      //   }
+          
+        
 
     default:
       return state;
