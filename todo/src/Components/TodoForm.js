@@ -33,7 +33,7 @@ console.log('toggle item',todoId);
 
   return (
   <>
-       <div className="ui segment">
+       <div className="ui segment" style={{backgroundColor: '#e6fff2'}}>
         <form className="ui form" onSubmit={(e) => {e.preventDefault(); setNewTodo(''); dispatch({type: 'ADD_ITEM', payload: newTodo})}}>
           <div className="field">
             <input type="text" value={newTodo}onChange={(e) => {setNewTodo(e.target.value); console.log(e.target)}} />
@@ -48,7 +48,7 @@ console.log('toggle item',todoId);
           console.log('the state',state);
           
           return (
-            <div className="item">
+            <div className="item medium">
               <div className="ui tiny image">
                 <i className="calendar outline icon"></i>
               </div>
